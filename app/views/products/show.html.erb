@@ -25,6 +25,34 @@
         </dl>
       </div>
     </div>
+    <div class="row panel panel-default items">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Reviewer</th>
+        <th>Description</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @reviews.each do |review| %>
+    <% if user = User.find_by(id: review.user_id) %>
+    <tr>
+      <td>
+        <%= user.first_name[0] + user.last_name[0] %>
+      </td>
+      <td>
+        <%= review.description %>
+      </td>
+      <td>
+        <%= review.rating %>
+      </td>
+    </tr>
+    </tbody>
+    <% end %>
+    <% end %>
+    </table>
+    </div>
 
   </article>
 

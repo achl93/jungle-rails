@@ -21,6 +21,16 @@ end
 
 # Let's do this ...
 
+## REVIEWS
+
+Review.destroy_all
+Review.create!(product_id: 1, user_id: 1, description: "A beautiful product worth every penny!", rating: 5)
+Review.create!(product_id: 1, user_id: 2, description: "This product sucks and was broken on arrival! Worst purchase ever!", rating: 1)
+Review.create!(product_id: 2, user_id: 1, description: "An okay product... Tad pricey for what it is.", rating: 3)
+Review.create!(product_id: 2, user_id: 2, description: "This was purchased as a gift and the recipient loved it!", rating: 4)
+Review.create!(product_id: 3, user_id: 1, description: "Do. Not. Buy. This. Trust me.", rating: 1)
+Review.create!(product_id: 4, user_id: 2, description: "Why is it so expensive? I could make this myself.", rating: 2)
+
 ## CATEGORIES
 
 puts "Finding or Creating Categories ..."
