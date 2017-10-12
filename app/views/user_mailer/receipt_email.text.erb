@@ -5,5 +5,15 @@ Your order id: <%= @order_id %>,
 Your username: <%= @user_email %><br>
  
 This is a confirmation that your order has been successfully processed
+
+<% @line_items.each do |item| %>
+<% if product = Product.find_by(id: item.product_id) %>
+  <%= item.product.name %>
+  <%= item.product.description %>
+  <%= item.product.price %>
+  <%= item.quantity %>
+  <%= item.product.price * item.quantity %>
+<% end %>
+<% end %>
  
 Thanks and have a great day!
