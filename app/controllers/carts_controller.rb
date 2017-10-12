@@ -3,6 +3,9 @@ class CartsController < ApplicationController
   before_filter :authorize
 
   def show
+    if cart.empty?
+      flash[:notice] = 'Your cart is empty! Please load up your cart before checkout!'
+    end
   end
 
   def add_item
