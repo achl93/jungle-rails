@@ -4,6 +4,17 @@
       SOLD OUT!
     </aside>
   <% end %>
+  <% if product.reviews.average(:rating) == nil %>
+    <aside class="rating">
+      No ratings
+    </aside>
+    <% else %>
+    <aside class="rating">
+      <% product.reviews.average(:rating).to_i.times do |fire| %>
+       🔥
+      <% end %>
+    <aside>
+  <% end %>
   <header>
     <%= link_to product do %>
       <%= image_tag product.image.thumb, alt: product.name %>

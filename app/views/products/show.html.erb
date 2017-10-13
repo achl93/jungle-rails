@@ -1,5 +1,4 @@
 <section class="products-show">
-
   <header class="page-header">
     <h1><%= link_to @product.category.name, @product.category %> &raquo; <%= @product.name %></h1>
   </header>
@@ -22,20 +21,40 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
+          <dt>Average Rating</dt>
+          <dd><%= @product.reviews.average(:rating).round(2) %></dd>
         </dl>
       </div>
     </div>
-    <div class="row panel panel-default items">
+    <div class="well">
+    <%= form_for [@product, @review] do |f|  %>
+      <div class="form-group">
+      <%= f.label :description %>
+      </div>
+      <div class="form-group">
+      <%= f.text_area :description, class: "form-control" %>
+      </div>
+      <div class="form-group">
+      <%= f.select :rating, [5, 4, 3, 2, 1], class: "form-control" %>
+      </div>
+      <div class="form-group">
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+      </div>
+      <span id="notice"><%= notice %></span>
+    <% end %>
+    </div>
+
+    <div class="panel panel-default items">
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Reviewer</th>
-        <th>Description</th>
-        <th>Rating</th>
+        <th class="col-md-4">Reviewer</th>
+        <th class="col-md-4">Description</th>
+        <th colspan="2 col-md-4">Rating</th>
       </tr>
     </thead>
     <tbody>
-    <% @reviews.each do |review| %>
+    <% @reviews.reverse_each do |review| %>
     <% if user = User.find_by(id: review.user_id) %>
     <tr>
       <td>
@@ -45,7 +64,16 @@
         <%= review.description %>
       </td>
       <td>
-        <%= review.rating %>
+        <% review.rating.times do |fire| %>
+         🔥
+        <% end %>
+      </td>
+      <td>
+        <% if current_user %>
+          <% if current_user.id == review.user_id %>
+            <%= link_to fa_icon('trash'), { :controller => :reviews, :action => :destroy , :id => review.id }, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "Are you sure?" } %>
+          <% end %>
+        <% end %>
       </td>
     </tr>
     </tbody>
