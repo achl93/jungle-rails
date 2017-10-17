@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Product tails", type: :feature, js: true do
+RSpec.feature "AddToCarts", type: :feature, js: true do
 
   # SETUP
   before :each do
@@ -16,13 +16,14 @@ RSpec.feature "Product tails", type: :feature, js: true do
     end
   end
 
-  scenario "They see all products" do
+  scenario "Cart number changes when items are added" do
     # ACT
-    visit '/products/1'
+    visit root_path
+    first('article.product').find_link('Add').click
 
     # DEBUG / VERIFY
-    # save_screenshot
-    expect(page).to have_content 'Name', 'Description', 'Quantity', 'Price'
+    save_screenshot
+    expect(page).to have_content 'My Cart (1)'
   end
 
 end
